@@ -14,11 +14,11 @@ class Program
 		if(args.Length == 3) Process.Start(handler, string.Format("\"{0}\"", args[2]));
 		else if(args.Length > 3)
 		{
-			string dirplus = args[2];
+            string dirplus = string.Join(" ", args.Skip(2));
 			int index = dirplus.LastIndexOf("\\");
-			var dir = new DirectoryInfo(dirplus.Substring(0,index));
+			var dir = new DirectoryInfo(dirplus.Substring(0,index)); //doesn't find directory with multiple spaces together in the name
 			var filepart = dirplus.Substring(index + 1);
-			var expression = filepart + "\\s+" + string.Join("\\s+", args.Skip(3));
+            var expression = filepart.Replace(" ", "\\s+");
 
 			var names = dir.GetFiles(filepart + "*").Select(x => x.Name);
 			var files = names.Where(x => Regex.IsMatch(x, expression));
