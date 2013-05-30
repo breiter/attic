@@ -1,0 +1,6 @@
+@echo off
+echo building hashgen.exe...
+csc /nologo /target:exe /optimize /out:hashgen.exe HashGen.cs HashManager.cs
+echo building pwdverify.exe...
+csc /nologo /target:exe /optimize /out:pwdverify.exe PwdVerify.cs HashManager.cs
+echo done.
